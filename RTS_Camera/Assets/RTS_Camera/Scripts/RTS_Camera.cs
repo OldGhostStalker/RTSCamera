@@ -168,6 +168,7 @@ namespace RTS_Cam
         private void Start()
         {
             m_Transform = transform;
+            zoomPos = (DistanceToGround() - minHeight) / (maxHeight - minHeight); //setting initial zoompos to actual height "fraction"
         }
 
         private void Update()
@@ -271,7 +272,7 @@ namespace RTS_Cam
                 difference = targetHeight - distanceToGround;
 
             m_Transform.position = Vector3.Lerp(m_Transform.position, 
-                new Vector3(m_Transform.position.x, targetHeight + difference, m_Transform.position.z), Time.deltaTime * heightDampening);
+                new Vector3(m_Transform.position.x, targetHeight + difference - distanceToGround + m_Transform.position.y, m_Transform.position.z), Time.deltaTime * heightDampening);
         }
 
         /// <summary>
